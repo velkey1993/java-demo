@@ -1,0 +1,16 @@
+Name: G1 Young Generation
+Collection Count: 0
+Collection Time: 0
+Pool Names: 
+    - G1 Eden Space
+    - G1 Survivor Space
+    - G1 Old Gen
+
+Name: G1 Old Generation
+Collection Count: 0
+Collection Time: 0
+Pool Names: 
+    - G1 Eden Space
+    - G1 Survivor Space
+    - G1 Old Gen
+
