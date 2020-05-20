@@ -51,11 +51,6 @@ public class TestContext {
         }
     }
 
-    public <T> void evaluateAssertion(Consumer<T> assertion) {
-        T object = (T) thenContext.getResponse();
-        assertion.accept(object);
-    }
-
     public void executeCall() throws IOException {
         if (thenContext.getResponse() == null) {
             URL url = givenContext.buildURL();
@@ -66,9 +61,14 @@ public class TestContext {
         }
     }
 
+    public <T> void evaluateAssertion(Consumer<T> assertion) {
+        T object = (T) thenContext.getResponse();
+        assertion.accept(object);
+    }
+
     private boolean isValidTestStatus(TestStatus testStatus) {
         return (testStatus.equals(TestStatus.GIVEN) && this.testStatus.equals(TestStatus.GIVEN))
-                || (testStatus.equals(TestStatus.WHEN) && this.testStatus.equals(TestStatus.GIVEN))
+                || (testStatus.equals(TestStatus.WHEN) && Arrays.asList(TestStatus.GIVEN, TestStatus.THEN).contains(this.testStatus))
                 || (testStatus.equals(TestStatus.THEN) && Arrays.asList(TestStatus.WHEN, TestStatus.THEN).contains(this.testStatus));
     }
 }

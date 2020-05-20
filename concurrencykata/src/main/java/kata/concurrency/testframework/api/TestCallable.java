@@ -1,30 +1,30 @@
 package kata.concurrency.testframework.api;
 
-import kata.concurrency.testframework.internal.model.InvocationContext;
-import kata.concurrency.testframework.internal.model.TestResult;
+import kata.concurrency.testframework.internal.model.TestCase;
+import kata.concurrency.testframework.internal.model.TestCaseResult;
 
 import java.util.concurrent.Callable;
 
-public class TestCallable implements Callable<TestResult> {
+public class TestCallable implements Callable<TestCaseResult> {
 
-    private final InvocationContext context;
+    private final TestCase testCase;
 
-    public TestCallable(InvocationContext context) {
-        this.context = context;
+    public TestCallable(TestCase testCase) {
+        this.testCase = testCase;
     }
 
     @Override
-    public TestResult call() {
-        TestResult testResult = new TestResult(context.getInstance().getClass().getSimpleName(), context.getMethod().getName());
+    public TestCaseResult call() {
+        TestCaseResult testCaseResult = new TestCaseResult(testCase.getInstance().getClass().getSimpleName(), testCase.getMethod().getName());
         try {
             Test.init();
-            context.getMethod().invoke(context.getInstance());
+            testCase.getMethod().invoke(testCase.getInstance());
         } catch (Exception exception) {
-            testResult.setRunStatus(TestResult.RunStatus.FAILURE);
-            testResult.setException(exception);
+            testCaseResult.setRunStatus(TestCaseResult.RunStatus.FAILURE);
+            testCaseResult.setException(exception);
         } finally {
             Test.destroy();
         }
-        return testResult;
+        return testCaseResult;
     }
 }

@@ -10,13 +10,22 @@ public class TestPostConstructHandler {
 
     private static final Logger LOGGER = Logger.getLogger(TestPostConstructHandler.class.getName());
 
-    public void handle(InvocationContextProvider invocationContextProvider, List<Object> testClassInstances) {
-        invocationContextProvider.provide(testClassInstances, PostConstruct.class)
+    private static final TestPostConstructHandler TEST_POST_CONSTRUCT_HANDLER = new TestPostConstructHandler();
+
+    private TestPostConstructHandler() {
+    }
+
+    public static TestPostConstructHandler getInstance() {
+        return TEST_POST_CONSTRUCT_HANDLER;
+    }
+
+    public void handle(List<Object> testClassInstances) {
+        TestCaseProvider.getInstance().provide(testClassInstances, PostConstruct.class)
                 .forEach(context -> {
                     try {
                         context.getMethod().invoke(context.getInstance());
                     } catch (IllegalAccessException | InvocationTargetException exception) {
-                        LOGGER.log(Level.WARNING, exception.getMessage(), exception);
+                        LOGGER.log(Level.WARNING, exception.getCause().getMessage(), exception);
                     }
                 });
     }

@@ -13,31 +13,25 @@ import java.io.IOException;
  */
 public class SampleTestSteps {
 
-    public static void givenAGeoLoc(double lat, double lon) throws IOException {
+    public static void givenAGeoLoc(double lat, double lon) {
         Test.addQueryParam("lat", String.valueOf(lat));
         Test.addQueryParam("lon", String.valueOf(lon));
     }
 
-    public static void givenARadiusInKm(int radius) throws IOException {
+    public static void givenARadiusInKm(int radius) {
         Test.addQueryParam("radius", String.valueOf(radius));
         Test.addQueryParam("radiustype", "km");
     }
 
-    public static void givenARadiusInMile(int radius) throws IOException {
+    public static void givenARadiusInMile(int radius) {
         Test.addQueryParam("radius", String.valueOf(radius));
         Test.addQueryParam("radiustype", "mile");
     }
 
-    public static void whenCitySearchEndpointIsCalled() throws IOException {
+    public static void whenCitySearchEndpointIsCalled() {
         Test.addPath("/citysearch");
         Test.setBaseUrl("env.mydomain.com");
         Test.setResponseDeserializer(Deserializers.CITY_SEARCH_ENDPOINT);
-    }
-
-    public static void whenCitySearchEndpointIsCalledWrongOrdered() throws IOException {
-        Test.setResponseDeserializer(Deserializers.CITY_SEARCH_ENDPOINT);
-        Test.addPath("/citysearch");
-        Test.setBaseUrl("env.mydomain.com");
     }
 
     public static void thenReturnedCitiesAre(City... expectedCities) throws IOException {

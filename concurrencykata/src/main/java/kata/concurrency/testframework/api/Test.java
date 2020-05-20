@@ -37,15 +37,16 @@ public class Test {
         testContext.getGivenContext().setBaseUrl(url);
     }
 
-    public static <T> void setResponseDeserializer(Function<String, T> deserializer) throws IOException {
+    public static <T> void setResponseDeserializer(Function<String, T> deserializer) {
         TestContext testContext = TEST_CONTEXT_THREAD_LOCAL.get();
-        testContext.setTestStatus(TestStatus.WHEN);
+        testContext.setTestStatus(TestStatus.GIVEN);
         testContext.getWhenContext().setDeserializer(deserializer);
-        testContext.executeCall();
     }
 
-    public static <T> void assertThat(Consumer<T> assertion) {
+    public static <T> void assertThat(Consumer<T> assertion) throws IOException {
         TestContext testContext = TEST_CONTEXT_THREAD_LOCAL.get();
+        testContext.setTestStatus(TestStatus.WHEN);
+        testContext.executeCall();
         testContext.setTestStatus(TestStatus.THEN);
         testContext.evaluateAssertion(assertion);
     }
