@@ -10,6 +10,7 @@ import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
 import org.mockserver.model.Parameter;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.util.Arrays;
@@ -22,7 +23,12 @@ import static kata.concurrency.tests.steps.SampleTestSteps.*;
  */
 public class SampleTest {
 
-    private static final ClientAndServer clientAndServer = ClientAndServer.startClientAndServer(1080);
+    private ClientAndServer clientAndServer;
+
+    @PostConstruct
+    public void postConstruct() {
+        clientAndServer = ClientAndServer.startClientAndServer(1080);
+    }
 
     @PreDestroy
     public void preDestroy() {
