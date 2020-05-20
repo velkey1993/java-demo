@@ -57,6 +57,8 @@ public class SampleTest {
         givenARadiusInKm(5);
 
         thenReturnedCitiesAre(LONDON);
+
+        givenARadiusInKm(5);
     }
 
     @TestCase
@@ -72,7 +74,7 @@ public class SampleTest {
     }
 
     @TestCase
-    public void citySearchEndpointShouldSupportMilesWrongOrdered1() throws IOException {
+    public void citySearchEndpointShouldSupportMilesWrongOrdered() throws IOException {
         setUpMockServerClientForRadiusInMiles();
 
         whenCitySearchEndpointIsCalled();
@@ -81,18 +83,8 @@ public class SampleTest {
         givenAGeoLoc(48.210033, 16.363449);
 
         thenReturnedCitiesAre(BERLIN, BUDAPEST);
-    }
 
-    @TestCase
-    public void citySearchEndpointShouldSupportMilesWrongOrdered2() throws IOException {
-        setUpMockServerClientForRadiusInMiles();
-
-        givenARadiusInMile(500);
         givenAGeoLoc(48.210033, 16.363449);
-
-        whenCitySearchEndpointIsCalledWrongOrdered();
-
-        thenReturnedCitiesAre(BERLIN, BUDAPEST);
     }
 
     private void setUpMockServerClientForRadiusInKm() {

@@ -10,8 +10,17 @@ public class TestPreDestroyHandler {
 
     private static final Logger LOGGER = Logger.getLogger(TestPreDestroyHandler.class.getName());
 
-    public void handle(InvocationContextProvider invocationContextProvider, List<Object> testClassInstances) {
-        invocationContextProvider.provide(testClassInstances, PreDestroy.class)
+    private static final TestPreDestroyHandler TEST_PRE_DESTROY_HANDLER = new TestPreDestroyHandler();
+
+    private TestPreDestroyHandler() {
+    }
+
+    public static TestPreDestroyHandler getInstance() {
+        return TEST_PRE_DESTROY_HANDLER;
+    }
+
+    public void handle(List<Object> testClassInstances) {
+        TestCaseProvider.getInstance().provide(testClassInstances, PreDestroy.class)
                 .forEach(context -> {
                     try {
                         context.getMethod().invoke(context.getInstance());

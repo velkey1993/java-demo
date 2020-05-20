@@ -1,13 +1,13 @@
 package kata.concurrency.testframework.internal.model;
 
-public class TestResult {
+public class TestCaseResult {
 
     private final String className;
     private final String methodName;
     private RunStatus runStatus = RunStatus.SUCCESS;
     private Exception exception;
 
-    public TestResult(String className, String methodName) {
+    public TestCaseResult(String className, String methodName) {
         this.className = className;
         this.methodName = methodName;
     }
