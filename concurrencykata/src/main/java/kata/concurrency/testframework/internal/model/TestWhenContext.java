@@ -1,14 +1,16 @@
 package kata.concurrency.testframework.internal.model;
 
+import java.util.function.Function;
+
 public class TestWhenContext {
 
-    private Object response;
+    private Function<String, ?> deserializer;
 
-    public Object getResponse() {
-        return response;
+    public Function<String, ?> getDeserializer() {
+        return deserializer;
     }
 
-    public void setResponse(Object response) {
-        this.response = response;
+    public <T> void setDeserializer(Function<String, T> deserializer) {
+        this.deserializer = deserializer;
     }
 }

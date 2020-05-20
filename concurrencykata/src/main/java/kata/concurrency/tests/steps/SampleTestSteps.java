@@ -13,17 +13,17 @@ import java.io.IOException;
  */
 public class SampleTestSteps {
 
-    public static void givenAGeoLoc(double lat, double lon) {
+    public static void givenAGeoLoc(double lat, double lon) throws IOException {
         Test.addQueryParam("lat", String.valueOf(lat));
         Test.addQueryParam("lon", String.valueOf(lon));
     }
 
-    public static void givenARadiusInKm(int radius) {
+    public static void givenARadiusInKm(int radius) throws IOException {
         Test.addQueryParam("radius", String.valueOf(radius));
         Test.addQueryParam("radiustype", "km");
     }
 
-    public static void givenARadiusInMile(int radius) {
+    public static void givenARadiusInMile(int radius) throws IOException {
         Test.addQueryParam("radius", String.valueOf(radius));
         Test.addQueryParam("radiustype", "mile");
     }
@@ -40,7 +40,7 @@ public class SampleTestSteps {
         Test.setBaseUrl("env.mydomain.com");
     }
 
-    public static void thenReturnedCitiesAre(City... expectedCities) {
+    public static void thenReturnedCitiesAre(City... expectedCities) throws IOException {
         Test.assertThat(CitySearchEndpointAssertions.returnedCitiesAre(expectedCities));
     }
 }
